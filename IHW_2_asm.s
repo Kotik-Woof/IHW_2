@@ -23,10 +23,10 @@ max_length:
 inputNumber:
 	push	rbp
 
-	mov	rbp, rsp					; запомнили последнее положение в стеке
+	mov	rbp, rsp					; Р·Р°РїРѕРјРЅРёР»Рё РїРѕСЃР»РµРґРЅРµРµ РїРѕР»РѕР¶РµРЅРёРµ РІ СЃС‚РµРєРµ
 	push	rbx
 	sub	rsp, 72
-	mov	QWORD PTR -72[rbp], rdi		; инициализация count (передача в функцию)
+	mov	QWORD PTR -72[rbp], rdi				; РёРЅРёС†РёР°Р»РёР·Р°С†РёСЏ count (РїРµСЂРµРґР°С‡Р° РІ С„СѓРЅРєС†РёСЋ)
 	mov	rax, QWORD PTR fs:40
 	mov	QWORD PTR -24[rbp], rax		
 	xor	eax, eax
@@ -36,7 +36,7 @@ inputNumber:
 	mov	eax, 10
 	cdqe
 	sub	rax, 1
-	mov	QWORD PTR -48[rbp], rax		; создание пременной is_correct
+	mov	QWORD PTR -48[rbp], rax				; СЃРѕР·РґР°РЅРёРµ РїСЂРµРјРµРЅРЅРѕР№ is_correct
 	mov	eax, 10
 	cdqe
 	mov	r10, rax
@@ -80,70 +80,70 @@ inputNumber:
 	mov	rax, rsp
 	add	rax, 0
 	mov	QWORD PTR -40[rbp], rax
-.L9:							 ; цикл while
-	mov	rax, QWORD PTR -40[rbp]  ;поместили в фунцкию buf
+.L9:							 		; С†РёРєР» while
+	mov	rax, QWORD PTR -40[rbp]  				; РїРѕРјРµСЃС‚РёР»Рё РІ С„СѓРЅС†РєРёСЋ buf
 	mov	rdi, rax
 	mov	eax, 0
 	call	gets@PLT
 
-	mov	rax, QWORD PTR -40[rbp]	; поместили в функцию значение buf
+	mov	rax, QWORD PTR -40[rbp]					; РїРѕРјРµСЃС‚РёР»Рё РІ С„СѓРЅРєС†РёСЋ Р·РЅР°С‡РµРЅРёРµ buf
 	mov	rdi, rax
 	call	atol@PLT
 
-	mov	QWORD PTR -32[rbp], rax	; number == 0 (поместили в number значение)
-	cmp	QWORD PTR -32[rbp], 0	; непосредственное сравнение
-	jne	.L5						; перешли дальше на следующее условие
+	mov	QWORD PTR -32[rbp], rax					; number == 0 (РїРѕРјРµСЃС‚РёР»Рё РІ number Р·РЅР°С‡РµРЅРёРµ)
+	cmp	QWORD PTR -32[rbp], 0					; РЅРµРїРѕСЃСЂРµРґСЃС‚РІРµРЅРЅРѕРµ СЃСЂР°РІРЅРµРЅРёРµ
+	jne	.L5							; РїРµСЂРµС€Р»Рё РґР°Р»СЊС€Рµ РЅР° СЃР»РµРґСѓСЋС‰РµРµ СѓСЃР»РѕРІРёРµ
 
-	mov	rax, QWORD PTR -40[rbp] ; строчка buf[0] != '0' 
+	mov	rax, QWORD PTR -40[rbp] ; СЃС‚СЂРѕС‡РєР° buf[0] != '0' 
 	movzx	eax, BYTE PTR [rax]
-	cmp	al, 48					; непосредственное сравнение
-	je	.L5						; перешли дальше на следующее условие
+	cmp	al, 48							; РЅРµРїРѕСЃСЂРµРґСЃС‚РІРµРЅРЅРѕРµ СЃСЂР°РІРЅРµРЅРёРµ
+	je	.L5							; РїРµСЂРµС€Р»Рё РґР°Р»СЊС€Рµ РЅР° СЃР»РµРґСѓСЋС‰РµРµ СѓСЃР»РѕРІРёРµ
 
-	lea	rax, .LC0[rip]			; помесли в функцию строку
+	lea	rax, .LC0[rip]						; РїРѕРјРµСЃР»Рё РІ С„СѓРЅРєС†РёСЋ СЃС‚СЂРѕРєСѓ
 	mov	rdi, rax
 	mov	eax, 0
-	call	printf@PLT			; вызвали функцию
+	call	printf@PLT						; РІС‹Р·РІР°Р»Рё С„СѓРЅРєС†РёСЋ
 
-	mov	BYTE PTR -49[rbp], 70	; is_correct = 'F'
+	mov	BYTE PTR -49[rbp], 70					; is_correct = 'F'
 
-	jmp	.L6						; прыгнули на проверку while
-.L5:							; когда введено число больше длинны текста
-	mov	rax, QWORD PTR -32[rbp]	; поместили в регистр значение number
-	cmp	rax, QWORD PTR -72[rbp]	; сравнили number с count
-	jle	.L7						; перешли дальше, если условие не прошло
-	
-	lea	rax, .LC1[rip]			; передали строку в функцию
+	jmp	.L6							; РїСЂС‹РіРЅСѓР»Рё РЅР° РїСЂРѕРІРµСЂРєСѓ while
+.L5:									; РєРѕРіРґР° РІРІРµРґРµРЅРѕ С‡РёСЃР»Рѕ Р±РѕР»СЊС€Рµ РґР»РёРЅРЅС‹ С‚РµРєСЃС‚Р°
+	mov	rax, QWORD PTR -32[rbp]					; РїРѕРјРµСЃС‚РёР»Рё РІ СЂРµРіРёСЃС‚СЂ Р·РЅР°С‡РµРЅРёРµ number
+	cmp	rax, QWORD PTR -72[rbp]					; СЃСЂР°РІРЅРёР»Рё number СЃ count
+	jle	.L7							; РїРµСЂРµС€Р»Рё РґР°Р»СЊС€Рµ, РµСЃР»Рё СѓСЃР»РѕРІРёРµ РЅРµ РїСЂРѕС€Р»Рѕ
+		
+	lea	rax, .LC1[rip]						; РїРµСЂРµРґР°Р»Рё СЃС‚СЂРѕРєСѓ РІ С„СѓРЅРєС†РёСЋ
 	mov	rdi, rax
 	mov	eax, 0
-	call	printf@PLT			; вызвали функцию
+	call	printf@PLT						; РІС‹Р·РІР°Р»Рё С„СѓРЅРєС†РёСЋ
 
 	mov	BYTE PTR -49[rbp], 70	; is_correct = 'F'
-	jmp	.L6						; перейти к циклу while
-.L7:							; когда введено негативное число
+	jmp	.L6							; РїРµСЂРµР№С‚Рё Рє С†РёРєР»Сѓ while
+.L7:									; РєРѕРіРґР° РІРІРµРґРµРЅРѕ РЅРµРіР°С‚РёРІРЅРѕРµ С‡РёСЃР»Рѕ
 	cmp	QWORD PTR -32[rbp], 0	; number < 0
-	jns	.L8						; прыгаем в последнюю ветку else
+	jns	.L8							; РїСЂС‹РіР°РµРј РІ РїРѕСЃР»РµРґРЅСЋСЋ РІРµС‚РєСѓ else
 
-	lea	rax, .LC2[rip]			; передать в функцию строку
+	lea	rax, .LC2[rip]						; РїРµСЂРµРґР°С‚СЊ РІ С„СѓРЅРєС†РёСЋ СЃС‚СЂРѕРєСѓ
 	mov	rdi, rax
 	mov	eax, 0
-	call	printf@PLT			; вызвать функцию
+	call	printf@PLT						; РІС‹Р·РІР°С‚СЊ С„СѓРЅРєС†РёСЋ
 
 	mov	BYTE PTR -49[rbp], 70   ; is_correct = 'F'
-	jmp	.L6						; перейти к проверке условия while
-.L8:							; else
+	jmp	.L6							; РїРµСЂРµР№С‚Рё Рє РїСЂРѕРІРµСЂРєРµ СѓСЃР»РѕРІРёСЏ while
+.L8:									; else
 	mov	BYTE PTR -49[rbp], 84	; is_correct = 'T'
-.L6:							; цикл while
-	cmp	BYTE PTR -49[rbp], 70	; сравниваем is_correct == 'F'
-	je	.L9						; прыгаем в проверку условия while
+.L6:									; С†РёРєР» while
+	cmp	BYTE PTR -49[rbp], 70	; СЃСЂР°РІРЅРёРІР°РµРј is_correct == 'F'
+	je	.L9							; РїСЂС‹РіР°РµРј РІ РїСЂРѕРІРµСЂРєСѓ СѓСЃР»РѕРІРёСЏ while
 
-	mov	rax, QWORD PTR -32[rbp] ; поместили значение number в rax
-	mov	rsp, rbx
+	mov	rax, QWORD PTR -32[rbp] 				; РїРѕРјРµСЃС‚РёР»Рё Р·РЅР°С‡РµРЅРёРµ number РІ rax
+	mov	rsp, rbx	
 	mov	rdx, QWORD PTR -24[rbp]
 	sub	rdx, QWORD PTR fs:40
 	je	.L11
 	call	__stack_chk_fail@PLT
 .L11:
-	mov	rbx, QWORD PTR -8[rbp]  ; возвращаем значение из функции
+	mov	rbx, QWORD PTR -8[rbp] 					 ; РІРѕР·РІСЂР°С‰Р°РµРј Р·РЅР°С‡РµРЅРёРµ РёР· С„СѓРЅРєС†РёРё
 	leave
 	ret
 	.size	inputNumber, .-inputNumber
@@ -170,232 +170,232 @@ main:
 	mov	rbp, rsp
 	sub	rsp, 80
 
-	mov	DWORD PTR -80[rbp], 0				; строчка count = 0
-	mov	QWORD PTR -32[rbp], 10000			; строчка size = 10000
+	mov	DWORD PTR -80[rbp], 0					; СЃС‚СЂРѕС‡РєР° count = 0
+	mov	QWORD PTR -32[rbp], 10000				; СЃС‚СЂРѕС‡РєР° size = 10000
 
-	lea	rax, .LC3[rip]						; помещаем строку в printf
+	lea	rax, .LC3[rip]						; РїРѕРјРµС‰Р°РµРј СЃС‚СЂРѕРєСѓ РІ printf
 	mov	rdi, rax
 	mov	eax, 0
-	call	printf@PLT						; вызываем функцию
+	call	printf@PLT						; РІС‹Р·С‹РІР°РµРј С„СѓРЅРєС†РёСЋ
 
-	mov	rax, QWORD PTR -32[rbp]				; помещаем значение size в функцию
+	mov	rax, QWORD PTR -32[rbp]					; РїРѕРјРµС‰Р°РµРј Р·РЅР°С‡РµРЅРёРµ size РІ С„СѓРЅРєС†РёСЋ
 	mov	rdi, rax
-	call	malloc@PLT						; вызываем функцию
-	mov	QWORD PTR -24[rbp], rax				; возвращаем значение из функции в массив
-	jmp	.L13								; переходим в условие цикла while
-.L15:										; тело цикла while
-	mov	eax, DWORD PTR -80[rbp]				; взяли значение count
-	movsx	rdx, eax						; скопировали его
-	mov	rax, QWORD PTR -24[rbp]				; берём ссылку на массив
-	add	rax, rdx							; взятие элемента по индексу
-	mov	edx, DWORD PTR -68[rbp]				; взяли значение symbol, преобразовали его в char
-	mov	BYTE PTR [rax], dl					; перенесли в текущий индекс значение symbol
-	add	DWORD PTR -80[rbp], 1				; count прибавили 1
-	mov	eax, DWORD PTR -80[rbp]				;
+	call	malloc@PLT						; РІС‹Р·С‹РІР°РµРј С„СѓРЅРєС†РёСЋ
+	mov	QWORD PTR -24[rbp], rax					; РІРѕР·РІСЂР°С‰Р°РµРј Р·РЅР°С‡РµРЅРёРµ РёР· С„СѓРЅРєС†РёРё РІ РјР°СЃСЃРёРІ
+	jmp	.L13							; РїРµСЂРµС…РѕРґРёРј РІ СѓСЃР»РѕРІРёРµ С†РёРєР»Р° while
+.L15:									; С‚РµР»Рѕ С†РёРєР»Р° while
+	mov	eax, DWORD PTR -80[rbp]					; РІР·СЏР»Рё Р·РЅР°С‡РµРЅРёРµ count
+	movsx	rdx, eax						; СЃРєРѕРїРёСЂРѕРІР°Р»Рё РµРіРѕ
+	mov	rax, QWORD PTR -24[rbp]					; Р±РµСЂС‘Рј СЃСЃС‹Р»РєСѓ РЅР° РјР°СЃСЃРёРІ
+	add	rax, rdx						; РІР·СЏС‚РёРµ СЌР»РµРјРµРЅС‚Р° РїРѕ РёРЅРґРµРєСЃСѓ
+	mov	edx, DWORD PTR -68[rbp]					; РІР·СЏР»Рё Р·РЅР°С‡РµРЅРёРµ symbol, РїСЂРµРѕР±СЂР°Р·РѕРІР°Р»Рё РµРіРѕ РІ char
+	mov	BYTE PTR [rax], dl					; РїРµСЂРµРЅРµСЃР»Рё РІ С‚РµРєСѓС‰РёР№ РёРЅРґРµРєСЃ Р·РЅР°С‡РµРЅРёРµ symbol
+	add	DWORD PTR -80[rbp], 1					; count РїСЂРёР±Р°РІРёР»Рё 1
+	mov	eax, DWORD PTR -80[rbp]					;
 
-											; условие И
+									; СѓСЃР»РѕРІРёРµ Р
 	cdqe
-	lea	rdx, -1[rax]						; обращение к индексу count - 1
-	mov	rax, QWORD PTR -24[rbp]				; берём ссылку на массив stroka
-	add	rax, rdx							; взятие элемента по индексу
-	movzx	eax, BYTE PTR [rax]				; копируются данные
-	cmp	al, 94								; строчка stroka[count - 1] == '^'
-	jne	.L13								; переход в тело цикла, если неверно
-	mov	eax, DWORD PTR -80[rbp]				;
-
-	cdqe
-	lea	rdx, -2[rax]						; обращение к индексу count - 2
-	mov	rax, QWORD PTR -24[rbp]				; берём ссылку на массив stroka
-	add	rax, rdx							; взятие элемента по индексу
-	movzx	eax, BYTE PTR [rax]				; копируются данные
-	cmp	al, 68								; сравнение элемента с 'D'
-	jne	.L13								; переход в тело цикла, если условие неверно
-	mov	eax, DWORD PTR -80[rbp]				;
+	lea	rdx, -1[rax]						; РѕР±СЂР°С‰РµРЅРёРµ Рє РёРЅРґРµРєСЃСѓ count - 1
+	mov	rax, QWORD PTR -24[rbp]					; Р±РµСЂС‘Рј СЃСЃС‹Р»РєСѓ РЅР° РјР°СЃСЃРёРІ stroka
+	add	rax, rdx						; РІР·СЏС‚РёРµ СЌР»РµРјРµРЅС‚Р° РїРѕ РёРЅРґРµРєСЃСѓ
+	movzx	eax, BYTE PTR [rax]					; РєРѕРїРёСЂСѓСЋС‚СЃСЏ РґР°РЅРЅС‹Рµ
+	cmp	al, 94							; СЃС‚СЂРѕС‡РєР° stroka[count - 1] == '^'
+	jne	.L13							; РїРµСЂРµС…РѕРґ РІ С‚РµР»Рѕ С†РёРєР»Р°, РµСЃР»Рё РЅРµРІРµСЂРЅРѕ
+	mov	eax, DWORD PTR -80[rbp]					;
 
 	cdqe
-	lea	rdx, -3[rax]						; обращение к индексу count - 3
-	mov	rax, QWORD PTR -24[rbp]				; берём ссылку на массив stroka
-	add	rax, rdx							; взятие элемента по индексу
-	movzx	eax, BYTE PTR [rax]				; копируются данные
-	cmp	al, 78								; сравнение элемента с 'N'
-	jne	.L13								; переход в тело цикла, если условие неверно
-	mov	eax, DWORD PTR -80[rbp]				;
+	lea	rdx, -2[rax]						; РѕР±СЂР°С‰РµРЅРёРµ Рє РёРЅРґРµРєСЃСѓ count - 2
+	mov	rax, QWORD PTR -24[rbp]					; Р±РµСЂС‘Рј СЃСЃС‹Р»РєСѓ РЅР° РјР°СЃСЃРёРІ stroka
+	add	rax, rdx						; РІР·СЏС‚РёРµ СЌР»РµРјРµРЅС‚Р° РїРѕ РёРЅРґРµРєСЃСѓ
+	movzx	eax, BYTE PTR [rax]					; РєРѕРїРёСЂСѓСЋС‚СЃСЏ РґР°РЅРЅС‹Рµ
+	cmp	al, 68							; СЃСЂР°РІРЅРµРЅРёРµ СЌР»РµРјРµРЅС‚Р° СЃ 'D'
+	jne	.L13							; РїРµСЂРµС…РѕРґ РІ С‚РµР»Рѕ С†РёРєР»Р°, РµСЃР»Рё СѓСЃР»РѕРІРёРµ РЅРµРІРµСЂРЅРѕ
+	mov	eax, DWORD PTR -80[rbp]					;
+
+	cdqe
+	lea	rdx, -3[rax]						; РѕР±СЂР°С‰РµРЅРёРµ Рє РёРЅРґРµРєСЃСѓ count - 3
+	mov	rax, QWORD PTR -24[rbp]					; Р±РµСЂС‘Рј СЃСЃС‹Р»РєСѓ РЅР° РјР°СЃСЃРёРІ stroka
+	add	rax, rdx						; РІР·СЏС‚РёРµ СЌР»РµРјРµРЅС‚Р° РїРѕ РёРЅРґРµРєСЃСѓ
+	movzx	eax, BYTE PTR [rax]					; РєРѕРїРёСЂСѓСЋС‚СЃСЏ РґР°РЅРЅС‹Рµ
+	cmp	al, 78							; СЃСЂР°РІРЅРµРЅРёРµ СЌР»РµРјРµРЅС‚Р° СЃ 'N'
+	jne	.L13							; РїРµСЂРµС…РѕРґ РІ С‚РµР»Рѕ С†РёРєР»Р°, РµСЃР»Рё СѓСЃР»РѕРІРёРµ РЅРµРІРµСЂРЅРѕ
+	mov	eax, DWORD PTR -80[rbp]					;
 
 	cdqe									
-	lea	rdx, -4[rax]						; обращение к индексу count - 4
-	mov	rax, QWORD PTR -24[rbp]				; берём ссылку на массив stroka
-	add	rax, rdx							; взятие элемента по индексу
-	movzx	eax, BYTE PTR [rax]				; копируются данные
-	cmp	al, 69								; сравнение элемента с 'E'
-	jne	.L13								; переход в тело цикла, если условие неверно
+	lea	rdx, -4[rax]						; РѕР±СЂР°С‰РµРЅРёРµ Рє РёРЅРґРµРєСЃСѓ count - 4
+	mov	rax, QWORD PTR -24[rbp]					; Р±РµСЂС‘Рј СЃСЃС‹Р»РєСѓ РЅР° РјР°СЃСЃРёРІ stroka
+	add	rax, rdx						; РІР·СЏС‚РёРµ СЌР»РµРјРµРЅС‚Р° РїРѕ РёРЅРґРµРєСЃСѓ
+	movzx	eax, BYTE PTR [rax]					; РєРѕРїРёСЂСѓСЋС‚СЃСЏ РґР°РЅРЅС‹Рµ
+	cmp	al, 69							; СЃСЂР°РІРЅРµРЅРёРµ СЌР»РµРјРµРЅС‚Р° СЃ 'E'
+	jne	.L13							; РїРµСЂРµС…РѕРґ РІ С‚РµР»Рѕ С†РёРєР»Р°, РµСЃР»Рё СѓСЃР»РѕРІРёРµ РЅРµРІРµСЂРЅРѕ
 	mov	eax, DWORD PTR -80[rbp]
 
 	cdqe
-	lea	rdx, -5[rax]						; обращение к индексу count - 5
-	mov	rax, QWORD PTR -24[rbp]				; берём ссылку на массив stroka
-	add	rax, rdx							; взятие элемента по индексу
-	movzx	eax, BYTE PTR [rax]				; копируются данные
-	cmp	al, 94								; строчка stroka[count - 1] == '^'
-	jne	.L13								; переходим в условие цикла while, если условие не верно
+	lea	rdx, -5[rax]						; РѕР±СЂР°С‰РµРЅРёРµ Рє РёРЅРґРµРєСЃСѓ count - 5
+	mov	rax, QWORD PTR -24[rbp]					; Р±РµСЂС‘Рј СЃСЃС‹Р»РєСѓ РЅР° РјР°СЃСЃРёРІ stroka
+	add	rax, rdx						; РІР·СЏС‚РёРµ СЌР»РµРјРµРЅС‚Р° РїРѕ РёРЅРґРµРєСЃСѓ
+	movzx	eax, BYTE PTR [rax]					; РєРѕРїРёСЂСѓСЋС‚СЃСЏ РґР°РЅРЅС‹Рµ
+	cmp	al, 94							; СЃС‚СЂРѕС‡РєР° stroka[count - 1] == '^'
+	jne	.L13							; РїРµСЂРµС…РѕРґРёРј РІ СѓСЃР»РѕРІРёРµ С†РёРєР»Р° while, РµСЃР»Рё СѓСЃР»РѕРІРёРµ РЅРµ РІРµСЂРЅРѕ
 
-	sub	DWORD PTR -80[rbp], 5				; вычитаем из count 5-ку
-	jmp	.L14								; выходим из цикла while
-.L13:										; условие цикла while
-	call	getchar@PLT						; считываем значение с клавиатуры
-	mov	DWORD PTR -68[rbp], eax				; возвращаем значение из getchar
+	sub	DWORD PTR -80[rbp], 5					; РІС‹С‡РёС‚Р°РµРј РёР· count 5-РєСѓ
+	jmp	.L14							; РІС‹С…РѕРґРёРј РёР· С†РёРєР»Р° while
+.L13:									; СѓСЃР»РѕРІРёРµ С†РёРєР»Р° while
+	call	getchar@PLT						; СЃС‡РёС‚С‹РІР°РµРј Р·РЅР°С‡РµРЅРёРµ СЃ РєР»Р°РІРёР°С‚СѓСЂС‹
+	mov	DWORD PTR -68[rbp], eax					; РІРѕР·РІСЂР°С‰Р°РµРј Р·РЅР°С‡РµРЅРёРµ РёР· getchar
 
-	cmp	DWORD PTR -68[rbp], -1				; сравниваем symbol и -1
-	jne	.L15								; если условие оказалось верным, то заходим в тело цикла
+	cmp	DWORD PTR -68[rbp], -1					; СЃСЂР°РІРЅРёРІР°РµРј symbol Рё -1
+	jne	.L15							; РµСЃР»Рё СѓСЃР»РѕРІРёРµ РѕРєР°Р·Р°Р»РѕСЃСЊ РІРµСЂРЅС‹Рј, С‚Рѕ Р·Р°С…РѕРґРёРј РІ С‚РµР»Рѕ С†РёРєР»Р°
 
-	mov	eax, DWORD PTR -80[rbp]				; берём значение count
+	mov	eax, DWORD PTR -80[rbp]					; Р±РµСЂС‘Рј Р·РЅР°С‡РµРЅРёРµ count
 	cdqe
-	cmp	QWORD PTR -32[rbp], rax				; условие count < size
-	ja	.L15								; заходим в тело цикла, если условие верное 
+	cmp	QWORD PTR -32[rbp], rax					; СѓСЃР»РѕРІРёРµ count < size
+	ja	.L15							; Р·Р°С…РѕРґРёРј РІ С‚РµР»Рѕ С†РёРєР»Р°, РµСЃР»Рё СѓСЃР»РѕРІРёРµ РІРµСЂРЅРѕРµ 
 .L14:
-	call	getchar@PLT						; вызвали функцию getchar (просто для отчистки потока)
+	call	getchar@PLT						; РІС‹Р·РІР°Р»Рё С„СѓРЅРєС†РёСЋ getchar (РїСЂРѕСЃС‚Рѕ РґР»СЏ РѕС‚С‡РёСЃС‚РєРё РїРѕС‚РѕРєР°)
 
-	lea	rax, .LC4[rip]						; передача строки в функцию
+	lea	rax, .LC4[rip]						; РїРµСЂРµРґР°С‡Р° СЃС‚СЂРѕРєРё РІ С„СѓРЅРєС†РёСЋ
 	mov	rdi, rax
-	call	puts@PLT						; печатаем "-------"
+	call	puts@PLT						; РїРµС‡Р°С‚Р°РµРј "-------"
 
-	mov	DWORD PTR -76[rbp], 0				; в i помещаем 0
-	jmp	.L16								; заходим в условие цикла for
-.L17:										; тело цикла for
-	mov	eax, DWORD PTR -76[rbp]				; взяли текущее значение i
-	movsx	rdx, eax						; скопировали i
-	mov	rax, QWORD PTR -24[rbp]				; взяли адрес начала массива
-	add	rax, rdx							; взяли элемент по индексу
+	mov	DWORD PTR -76[rbp], 0					; РІ i РїРѕРјРµС‰Р°РµРј 0
+	jmp	.L16							; Р·Р°С…РѕРґРёРј РІ СѓСЃР»РѕРІРёРµ С†РёРєР»Р° for
+.L17:									; С‚РµР»Рѕ С†РёРєР»Р° for
+	mov	eax, DWORD PTR -76[rbp]					; РІР·СЏР»Рё С‚РµРєСѓС‰РµРµ Р·РЅР°С‡РµРЅРёРµ i
+	movsx	rdx, eax						; СЃРєРѕРїРёСЂРѕРІР°Р»Рё i
+	mov	rax, QWORD PTR -24[rbp]					; РІР·СЏР»Рё Р°РґСЂРµСЃ РЅР°С‡Р°Р»Р° РјР°СЃСЃРёРІР°
+	add	rax, rdx						; РІР·СЏР»Рё СЌР»РµРјРµРЅС‚ РїРѕ РёРЅРґРµРєСЃСѓ
 	movzx	eax, BYTE PTR [rax]
 	movsx	eax, al
-	mov	edi, eax							; передали значение текущего элемента массива в функцию
-	call	putchar@PLT						; вызвали функцию
+	mov	edi, eax						; РїРµСЂРµРґР°Р»Рё Р·РЅР°С‡РµРЅРёРµ С‚РµРєСѓС‰РµРіРѕ СЌР»РµРјРµРЅС‚Р° РјР°СЃСЃРёРІР° РІ С„СѓРЅРєС†РёСЋ
+	call	putchar@PLT						; РІС‹Р·РІР°Р»Рё С„СѓРЅРєС†РёСЋ
 
-	add	DWORD PTR -76[rbp], 1				; ++i
-.L16:										; условие цикла for
-	mov	eax, DWORD PTR -76[rbp]				; в eax помещаем i
-	cmp	eax, DWORD PTR -80[rbp]				; сравниваем i и count
-	jl	.L17								; если count < i, то заходим в цикл
+	add	DWORD PTR -76[rbp], 1					; ++i
+.L16:									; СѓСЃР»РѕРІРёРµ С†РёРєР»Р° for
+	mov	eax, DWORD PTR -76[rbp]					; РІ eax РїРѕРјРµС‰Р°РµРј i
+	cmp	eax, DWORD PTR -80[rbp]					; СЃСЂР°РІРЅРёРІР°РµРј i Рё count
+	jl	.L17							; РµСЃР»Рё count < i, С‚Рѕ Р·Р°С…РѕРґРёРј РІ С†РёРєР»
 
-	lea	rax, .LC4[rip]						; взяли адрес сообщения "-------"
+	lea	rax, .LC4[rip]						; РІР·СЏР»Рё Р°РґСЂРµСЃ СЃРѕРѕР±С‰РµРЅРёСЏ "-------"
 	mov	rdi, rax
-	call	puts@PLT						; вывели сообщение
+	call	puts@PLT						; РІС‹РІРµР»Рё СЃРѕРѕР±С‰РµРЅРёРµ
 
-	; вывод сообщения об желаемом интервале
-	mov	eax, DWORD PTR -80[rbp]				; взяли значение count
-	sub	eax, 1								; отняли из этого значения 1
-	mov	esi, eax							; перенесли это значение
+	; РІС‹РІРѕРґ СЃРѕРѕР±С‰РµРЅРёСЏ РѕР± Р¶РµР»Р°РµРјРѕРј РёРЅС‚РµСЂРІР°Р»Рµ
+	mov	eax, DWORD PTR -80[rbp]					; РІР·СЏР»Рё Р·РЅР°С‡РµРЅРёРµ count
+	sub	eax, 1							; РѕС‚РЅСЏР»Рё РёР· СЌС‚РѕРіРѕ Р·РЅР°С‡РµРЅРёСЏ 1
+	mov	esi, eax						; РїРµСЂРµРЅРµСЃР»Рё СЌС‚Рѕ Р·РЅР°С‡РµРЅРёРµ
 
-	lea	rax, .LC5[rip]						; взяли адрес сообщения
-	mov	rdi, rax							; переместили значение
+	lea	rax, .LC5[rip]						; РІР·СЏР»Рё Р°РґСЂРµСЃ СЃРѕРѕР±С‰РµРЅРёСЏ
+	mov	rdi, rax						; РїРµСЂРµРјРµСЃС‚РёР»Рё Р·РЅР°С‡РµРЅРёРµ
 	mov	eax, 0
-	call	printf@PLT						; вывели сообщение на экран
+	call	printf@PLT						; РІС‹РІРµР»Рё СЃРѕРѕР±С‰РµРЅРёРµ РЅР° СЌРєСЂР°РЅ
 
-	mov	QWORD PTR -64[rbp], 0				; N1 = 0
-	mov	QWORD PTR -56[rbp], 0				; N2 = 0
+	mov	QWORD PTR -64[rbp], 0					; N1 = 0
+	mov	QWORD PTR -56[rbp], 0					; N2 = 0
 
-	lea	rax, .LC6[rip]						; взяли адрес сообщения (ввод первого числа)
+	lea	rax, .LC6[rip]						; РІР·СЏР»Рё Р°РґСЂРµСЃ СЃРѕРѕР±С‰РµРЅРёСЏ (РІРІРѕРґ РїРµСЂРІРѕРіРѕ С‡РёСЃР»Р°)
 	mov	rdi, rax
 	mov	eax, 0
-	call	printf@PLT						; вывели сообщение на экран
+	call	printf@PLT						; РІС‹РІРµР»Рё СЃРѕРѕР±С‰РµРЅРёРµ РЅР° СЌРєСЂР°РЅ
 
-	mov	eax, DWORD PTR -80[rbp]				; взяли значение count
-	sub	eax, 1								; отняли из этого значения 1
+	mov	eax, DWORD PTR -80[rbp]					; РІР·СЏР»Рё Р·РЅР°С‡РµРЅРёРµ count
+	sub	eax, 1							; РѕС‚РЅСЏР»Рё РёР· СЌС‚РѕРіРѕ Р·РЅР°С‡РµРЅРёСЏ 1
 
 	cdqe
-	mov	rdi, rax							; передали переменную в функцию
-	call	inputNumber						; вызвали функцию
-	mov	QWORD PTR -64[rbp], rax				; вернули из функции значение для N1
+	mov	rdi, rax						; РїРµСЂРµРґР°Р»Рё РїРµСЂРµРјРµРЅРЅСѓСЋ РІ С„СѓРЅРєС†РёСЋ
+	call	inputNumber						; РІС‹Р·РІР°Р»Рё С„СѓРЅРєС†РёСЋ
+	mov	QWORD PTR -64[rbp], rax					; РІРµСЂРЅСѓР»Рё РёР· С„СѓРЅРєС†РёРё Р·РЅР°С‡РµРЅРёРµ РґР»СЏ N1
 
-	lea	rax, .LC7[rip]						; взяли адрес сообщения  (ввод второго числа)
+	lea	rax, .LC7[rip]						; РІР·СЏР»Рё Р°РґСЂРµСЃ СЃРѕРѕР±С‰РµРЅРёСЏ  (РІРІРѕРґ РІС‚РѕСЂРѕРіРѕ С‡РёСЃР»Р°)
 	mov	rdi, rax
 	mov	eax, 0								
-	call	printf@PLT						; вывели сообщение на экран
+	call	printf@PLT						; РІС‹РІРµР»Рё СЃРѕРѕР±С‰РµРЅРёРµ РЅР° СЌРєСЂР°РЅ
 
-	mov	eax, DWORD PTR -80[rbp]				; взяли значение count
-	sub	eax, 1								; отняли из этого значения 1
+	mov	eax, DWORD PTR -80[rbp]					; РІР·СЏР»Рё Р·РЅР°С‡РµРЅРёРµ count
+	sub	eax, 1							; РѕС‚РЅСЏР»Рё РёР· СЌС‚РѕРіРѕ Р·РЅР°С‡РµРЅРёСЏ 1
 	
 	cdqe
-	mov	rdi, rax							; передали значение count -1 в функцию
-	call	inputNumber						; вызвали функцию
-	mov	QWORD PTR -56[rbp], rax				; получили значение из функции для N2
+	mov	rdi, rax						; РїРµСЂРµРґР°Р»Рё Р·РЅР°С‡РµРЅРёРµ count -1 РІ С„СѓРЅРєС†РёСЋ
+	call	inputNumber						; РІС‹Р·РІР°Р»Рё С„СѓРЅРєС†РёСЋ
+	mov	QWORD PTR -56[rbp], rax					; РїРѕР»СѓС‡РёР»Рё Р·РЅР°С‡РµРЅРёРµ РёР· С„СѓРЅРєС†РёРё РґР»СЏ N2
 
-	mov	rax, QWORD PTR -64[rbp]				; взяли значение у N1
-	cmp	rax, QWORD PTR -56[rbp]				; сравнили N1 > N2
-	jle	.L18								; если это ложь, то переходим дальше
+	mov	rax, QWORD PTR -64[rbp]					; РІР·СЏР»Рё Р·РЅР°С‡РµРЅРёРµ Сѓ N1
+	cmp	rax, QWORD PTR -56[rbp]					; СЃСЂР°РІРЅРёР»Рё N1 > N2
+	jle	.L18							; РµСЃР»Рё СЌС‚Рѕ Р»РѕР¶СЊ, С‚Рѕ РїРµСЂРµС…РѕРґРёРј РґР°Р»СЊС€Рµ
 
-											; внутренность if
-	mov	rax, QWORD PTR -64[rbp]				; взяли занчение N1
-	mov	QWORD PTR -16[rbp], rax				; строка long temp = N1
-	mov	rax, QWORD PTR -56[rbp]				; взяли N2
-	mov	QWORD PTR -64[rbp], rax				; N1 = N2
-	mov	rax, QWORD PTR -16[rbp]				; взяли значение temp
-	mov	QWORD PTR -56[rbp], rax				; N2 = temp
+									; РІРЅСѓС‚СЂРµРЅРЅРѕСЃС‚СЊ if
+	mov	rax, QWORD PTR -64[rbp]					; РІР·СЏР»Рё Р·Р°РЅС‡РµРЅРёРµ N1
+	mov	QWORD PTR -16[rbp], rax					; СЃС‚СЂРѕРєР° long temp = N1
+	mov	rax, QWORD PTR -56[rbp]					; РІР·СЏР»Рё N2
+	mov	QWORD PTR -64[rbp], rax					; N1 = N2
+	mov	rax, QWORD PTR -16[rbp]					; РІР·СЏР»Рё Р·РЅР°С‡РµРЅРёРµ temp
+	mov	QWORD PTR -56[rbp], rax					; N2 = temp
 .L18:
-	mov	rax, QWORD PTR -56[rbp]				; происходи вычисление N2 - N1 + 1
+	mov	rax, QWORD PTR -56[rbp]					; РїСЂРѕРёСЃС…РѕРґРё РІС‹С‡РёСЃР»РµРЅРёРµ N2 - N1 + 1
 	sub	rax, QWORD PTR -64[rbp]
 	add	rax, 1
 
-	mov	rdi, rax							; поместили результат в функцию
-	call	malloc@PLT						; вызвали функцию
-	mov	QWORD PTR -8[rbp], rax				; получили значение из функции
+	mov	rdi, rax						; РїРѕРјРµСЃС‚РёР»Рё СЂРµР·СѓР»СЊС‚Р°С‚ РІ С„СѓРЅРєС†РёСЋ
+	call	malloc@PLT						; РІС‹Р·РІР°Р»Рё С„СѓРЅРєС†РёСЋ
+	mov	QWORD PTR -8[rbp], rax					; РїРѕР»СѓС‡РёР»Рё Р·РЅР°С‡РµРЅРёРµ РёР· С„СѓРЅРєС†РёРё
 
-	mov	rax, QWORD PTR -56[rbp]				; взяли занчение N2
-	mov	QWORD PTR -48[rbp], rax				; проинициализировали им переменную i
-	mov	QWORD PTR -40[rbp], 0				; проиницализировали index = 0
-	jmp	.L19								; зашли в условие цикла for
+	mov	rax, QWORD PTR -56[rbp]					; РІР·СЏР»Рё Р·Р°РЅС‡РµРЅРёРµ N2
+	mov	QWORD PTR -48[rbp], rax					; РїСЂРѕРёРЅРёС†РёР°Р»РёР·РёСЂРѕРІР°Р»Рё РёРј РїРµСЂРµРјРµРЅРЅСѓСЋ i
+	mov	QWORD PTR -40[rbp], 0					; РїСЂРѕРёРЅРёС†Р°Р»РёР·РёСЂРѕРІР°Р»Рё index = 0
+	jmp	.L19							; Р·Р°С€Р»Рё РІ СѓСЃР»РѕРІРёРµ С†РёРєР»Р° for
 .L20:
-	mov	rdx, QWORD PTR -48[rbp]				; взяли значение i
-	mov	rax, QWORD PTR -24[rbp]				; взяли адрес начала массива stroka
-	add	rax, rdx							; взяли адрес элемента массива по индексу
+	mov	rdx, QWORD PTR -48[rbp]					; РІР·СЏР»Рё Р·РЅР°С‡РµРЅРёРµ i
+	mov	rax, QWORD PTR -24[rbp]					; РІР·СЏР»Рё Р°РґСЂРµСЃ РЅР°С‡Р°Р»Р° РјР°СЃСЃРёРІР° stroka
+	add	rax, rdx						; РІР·СЏР»Рё Р°РґСЂРµСЃ СЌР»РµРјРµРЅС‚Р° РјР°СЃСЃРёРІР° РїРѕ РёРЅРґРµРєСЃСѓ
 	
-	mov	rcx, QWORD PTR -40[rbp]				; взяли занчение index
-	mov	rdx, QWORD PTR -8[rbp]				; взяли адрес массива result_string
-	add	rdx, rcx							; получили адрес элемента массива по индексу
-	movzx	eax, BYTE PTR [rax]				; взяли значение из массива stroka
-	mov	BYTE PTR [rdx], al					; присвоили это значение в массива result_index
-	sub	QWORD PTR -48[rbp], 1				; i--
-	add	QWORD PTR -40[rbp], 1				; index++
+	mov	rcx, QWORD PTR -40[rbp]					; РІР·СЏР»Рё Р·Р°РЅС‡РµРЅРёРµ index
+	mov	rdx, QWORD PTR -8[rbp]					; РІР·СЏР»Рё Р°РґСЂРµСЃ РјР°СЃСЃРёРІР° result_string
+	add	rdx, rcx						; РїРѕР»СѓС‡РёР»Рё Р°РґСЂРµСЃ СЌР»РµРјРµРЅС‚Р° РјР°СЃСЃРёРІР° РїРѕ РёРЅРґРµРєСЃСѓ
+	movzx	eax, BYTE PTR [rax]					; РІР·СЏР»Рё Р·РЅР°С‡РµРЅРёРµ РёР· РјР°СЃСЃРёРІР° stroka
+	mov	BYTE PTR [rdx], al					; РїСЂРёСЃРІРѕРёР»Рё СЌС‚Рѕ Р·РЅР°С‡РµРЅРёРµ РІ РјР°СЃСЃРёРІР° result_index
+	sub	QWORD PTR -48[rbp], 1					; i--
+	add	QWORD PTR -40[rbp], 1					; index++
 
-.L19:										; условие цикла for
-	mov	rax, QWORD PTR -48[rbp]				; взяли i
-	cmp	rax, QWORD PTR -64[rbp]				; сравнили i и N1
-	jge	.L20								; если i >= N1, то заходим в тело цикла
+.L19:									; СѓСЃР»РѕРІРёРµ С†РёРєР»Р° for
+	mov	rax, QWORD PTR -48[rbp]					; РІР·СЏР»Рё i
+	cmp	rax, QWORD PTR -64[rbp]					; СЃСЂР°РІРЅРёР»Рё i Рё N1
+	jge	.L20							; РµСЃР»Рё i >= N1, С‚Рѕ Р·Р°С…РѕРґРёРј РІ С‚РµР»Рѕ С†РёРєР»Р°
 
-	mov	DWORD PTR -72[rbp], 0				; инициализировали новую i
-	jmp	.L21								; переходим в условие для цикла for
-.L22:										; тело цикла for
-	mov	eax, DWORD PTR -72[rbp]				; берём переменную i
-	movsx	rdx, eax						; копируем её адрес
-	mov	rax, QWORD PTR -8[rbp]				; получаем адресс начала массива result_string
-	add	rax, rdx							; получаем адрес текущего элемента
+	mov	DWORD PTR -72[rbp], 0					; РёРЅРёС†РёР°Р»РёР·РёСЂРѕРІР°Р»Рё РЅРѕРІСѓСЋ i
+	jmp	.L21							; РїРµСЂРµС…РѕРґРёРј РІ СѓСЃР»РѕРІРёРµ РґР»СЏ С†РёРєР»Р° for
+.L22:									; С‚РµР»Рѕ С†РёРєР»Р° for
+	mov	eax, DWORD PTR -72[rbp]					; Р±РµСЂС‘Рј РїРµСЂРµРјРµРЅРЅСѓСЋ i
+	movsx	rdx, eax						; РєРѕРїРёСЂСѓРµРј РµС‘ Р°РґСЂРµСЃ
+	mov	rax, QWORD PTR -8[rbp]					; РїРѕР»СѓС‡Р°РµРј Р°РґСЂРµСЃСЃ РЅР°С‡Р°Р»Р° РјР°СЃСЃРёРІР° result_string
+	add	rax, rdx						; РїРѕР»СѓС‡Р°РµРј Р°РґСЂРµСЃ С‚РµРєСѓС‰РµРіРѕ СЌР»РµРјРµРЅС‚Р°
 
-	movzx	eax, BYTE PTR [rax]				; преобразум и отправляем в функцию, чтобы вывести на экран
+	movzx	eax, BYTE PTR [rax]					; РїСЂРµРѕР±СЂР°Р·СѓРј Рё РѕС‚РїСЂР°РІР»СЏРµРј РІ С„СѓРЅРєС†РёСЋ, С‡С‚РѕР±С‹ РІС‹РІРµСЃС‚Рё РЅР° СЌРєСЂР°РЅ
 	movsx	eax, al
 	mov	edi, eax
 	call	putchar@PLT
 
-	add	DWORD PTR -72[rbp], 1				; i++
-.L21:										; условие цикла for
-	mov	rax, QWORD PTR -56[rbp]				; берём значение N2
-	sub	rax, QWORD PTR -64[rbp]				; N2 - N1
-	mov	rdx, rax							; запоминаем результат
-	mov	eax, DWORD PTR -72[rbp]				; берём переменную i
+	add	DWORD PTR -72[rbp], 1					; i++
+.L21:									; СѓСЃР»РѕРІРёРµ С†РёРєР»Р° for
+	mov	rax, QWORD PTR -56[rbp]					; Р±РµСЂС‘Рј Р·РЅР°С‡РµРЅРёРµ N2
+	sub	rax, QWORD PTR -64[rbp]					; N2 - N1
+	mov	rdx, rax						; Р·Р°РїРѕРјРёРЅР°РµРј СЂРµР·СѓР»СЊС‚Р°С‚
+	mov	eax, DWORD PTR -72[rbp]					; Р±РµСЂС‘Рј РїРµСЂРµРјРµРЅРЅСѓСЋ i
 
 	cdqe
-	cmp	rdx, rax							; сравнение результата и i
-	jge	.L22								; если i < N2 - N1 + 1, переходим в тело цикла
+	cmp	rdx, rax						; СЃСЂР°РІРЅРµРЅРёРµ СЂРµР·СѓР»СЊС‚Р°С‚Р° Рё i
+	jge	.L22							; РµСЃР»Рё i < N2 - N1 + 1, РїРµСЂРµС…РѕРґРёРј РІ С‚РµР»Рѕ С†РёРєР»Р°
 
-	mov	edi, 10								; "\n"
-	call	putchar@PLT						; вызываем функцию
+	mov	edi, 10							; "\n"
+	call	putchar@PLT						; РІС‹Р·С‹РІР°РµРј С„СѓРЅРєС†РёСЋ
 
-	lea	rax, .LC8[rip]						; берём адрес сообщения
-	mov	rdi, rax							; помещаем сообщение в функцию
-	call	puts@PLT						; вызываем функцию
+	lea	rax, .LC8[rip]						; Р±РµСЂС‘Рј Р°РґСЂРµСЃ СЃРѕРѕР±С‰РµРЅРёСЏ
+	mov	rdi, rax						; РїРѕРјРµС‰Р°РµРј СЃРѕРѕР±С‰РµРЅРёРµ РІ С„СѓРЅРєС†РёСЋ
+	call	puts@PLT						; РІС‹Р·С‹РІР°РµРј С„СѓРЅРєС†РёСЋ
 
-	mov	rax, QWORD PTR -24[rbp]				; берём адрес начала массива stroka
-	mov	rdi, rax							; помещаем это значение в функцию
-	call	free@PLT						; вызываем функцию
-	mov	eax, 0								; return 0		
+	mov	rax, QWORD PTR -24[rbp]					; Р±РµСЂС‘Рј Р°РґСЂРµСЃ РЅР°С‡Р°Р»Р° РјР°СЃСЃРёРІР° stroka
+	mov	rdi, rax						; РїРѕРјРµС‰Р°РµРј СЌС‚Рѕ Р·РЅР°С‡РµРЅРёРµ РІ С„СѓРЅРєС†РёСЋ
+	call	free@PLT						; РІС‹Р·С‹РІР°РµРј С„СѓРЅРєС†РёСЋ
+	mov	eax, 0							; return 0		
 	
 	leave
 	ret
