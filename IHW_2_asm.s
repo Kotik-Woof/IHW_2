@@ -94,7 +94,7 @@ inputNumber:
 	cmp	QWORD PTR -32[rbp], 0					; непосредственное сравнение
 	jne	.L5							; перешли дальше на следующее условие
 
-	mov	rax, QWORD PTR -40[rbp] ; строчка buf[0] != '0' 
+	mov	rax, QWORD PTR -40[rbp] 				; строчка buf[0] != '0' 
 	movzx	eax, BYTE PTR [rax]
 	cmp	al, 48							; непосредственное сравнение
 	je	.L5							; перешли дальше на следующее условие
@@ -117,10 +117,10 @@ inputNumber:
 	mov	eax, 0
 	call	printf@PLT						; вызвали функцию
 
-	mov	BYTE PTR -49[rbp], 70	; is_correct = 'F'
+	mov	BYTE PTR -49[rbp], 70					; is_correct = 'F'
 	jmp	.L6							; перейти к циклу while
 .L7:									; когда введено негативное число
-	cmp	QWORD PTR -32[rbp], 0	; number < 0
+	cmp	QWORD PTR -32[rbp], 0					; number < 0
 	jns	.L8							; прыгаем в последнюю ветку else
 
 	lea	rax, .LC2[rip]						; передать в функцию строку
@@ -128,12 +128,12 @@ inputNumber:
 	mov	eax, 0
 	call	printf@PLT						; вызвать функцию
 
-	mov	BYTE PTR -49[rbp], 70   ; is_correct = 'F'
+	mov	BYTE PTR -49[rbp], 70   				; is_correct = 'F'
 	jmp	.L6							; перейти к проверке условия while
 .L8:									; else
-	mov	BYTE PTR -49[rbp], 84	; is_correct = 'T'
+	mov	BYTE PTR -49[rbp], 84					; is_correct = 'T'
 .L6:									; цикл while
-	cmp	BYTE PTR -49[rbp], 70	; сравниваем is_correct == 'F'
+	cmp	BYTE PTR -49[rbp], 70					; сравниваем is_correct == 'F'
 	je	.L9							; прыгаем в проверку условия while
 
 	mov	rax, QWORD PTR -32[rbp] 				; поместили значение number в rax
@@ -280,7 +280,7 @@ main:
 	mov	rdi, rax
 	call	puts@PLT						; вывели сообщение
 
-	; вывод сообщения об желаемом интервале
+								; вывод сообщения об желаемом интервале
 	mov	eax, DWORD PTR -80[rbp]					; взяли значение count
 	sub	eax, 1							; отняли из этого значения 1
 	mov	esi, eax						; перенесли это значение
